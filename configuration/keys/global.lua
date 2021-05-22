@@ -12,31 +12,79 @@ local globalKeys =
   -- Hotkeys
   awful.key({modkey}, 'F1', hotkeys_popup.show_help, {description = 'Show help', group = 'awesome'}),
   -- Tag browsing
-  awful.key({modkey}, 'w', awful.tag.viewprev, {description = 'view previous', group = 'tag'}),
-  awful.key({modkey}, 's', awful.tag.viewnext, {description = 'view next', group = 'tag'}),
-  awful.key({altkey, 'Control'}, 'Up', awful.tag.viewprev, {description = 'view previous', group = 'tag'}),
-  awful.key({altkey, 'Control'}, 'Down', awful.tag.viewnext, {description = 'view next', group = 'tag'}),
+  awful.key({modkey, 'Control'}, 'Left', awful.tag.viewprev, {description = 'view previous', group = 'tag'}),
+  awful.key({modkey, 'Control'}, 'Right', awful.tag.viewnext, {description = 'view next', group = 'tag'}),
+  -- awful.key({altkey, 'Control'}, 'Up', awful.tag.viewprev, {description = 'view previous', group = 'tag'}),
+  -- awful.key({altkey, 'Control'}, 'Down', awful.tag.viewnext, {description = 'view next', group = 'tag'}),
   awful.key({modkey}, 'Escape', awful.tag.history.restore, {description = 'go back', group = 'tag'}),
   -- Default client focus
   awful.key(
     {modkey},
-    'd',
+    'Right',
     function()
-      awful.client.focus.byidx(1)
+      awful.client.focus.bydirection('right')
     end,
-    {description = 'Focus next by index', group = 'client'}
+    {description = 'Focus right by direction', group = 'client'}
   ),
   awful.key(
     {modkey},
-    'a',
+    'Left',
     function()
-      awful.client.focus.byidx(-1)
+      awful.client.focus.bydirection('left')
     end,
-    {description = 'Focus previous by index', group = 'client'}
+    {description = 'Focus left by direction', group = 'client'}
   ),
   awful.key(
     {modkey},
-    'r',
+    'Up',
+    function()
+      awful.client.focus.bydirection('up')
+    end,
+    {description = 'Focus up by direction', group = 'client'}
+  ),
+  awful.key(
+    {modkey},
+    'Down',
+    function()
+      awful.client.focus.bydirection('down')
+    end,
+    {description = 'Focus down by direction', group = 'client'}
+  ),
+  awful.key(
+    {altkey, modkey},
+    'Right',
+    function()
+      awful.client.swap.bydirection('right')
+    end,
+    {description = 'Swap right by direction', group = 'client'}
+  ),
+  awful.key(
+    {altkey, modkey},
+    'Left',
+    function()
+      awful.client.swap.bydirection('left')
+    end,
+    {description = 'Swap left by direction', group = 'client'}
+  ),
+  awful.key(
+    {altkey, modkey},
+    'Up',
+    function()
+      awful.client.swap.bydirection('up')
+    end,
+    {description = 'Swap up by direction', group = 'client'}
+  ),
+  awful.key(
+    {altkey, modkey},
+    'Down',
+    function()
+      awful.client.swap.bydirection('down')
+    end,
+    {description = 'Swap down by direction', group = 'client'}
+  ),
+  awful.key(
+    {modkey},
+    '/',
     function()
       awful.spawn('rofi -combi-modi window,drun -show combi -modi combi')
     end,
@@ -151,7 +199,7 @@ local globalKeys =
   -- Standard program
   awful.key(
     {modkey},
-    'x',
+    'Return',
     function()
       awful.spawn(apps.default.terminal)
     end,
@@ -160,7 +208,7 @@ local globalKeys =
   awful.key({modkey, 'Control'}, 'r', _G.awesome.restart, {description = 'reload awesome', group = 'awesome'}),
   awful.key({modkey, 'Control'}, 'q', _G.awesome.quit, {description = 'quit awesome', group = 'awesome'}),
   awful.key(
-    {altkey, 'Shift'},
+    {modkey, 'Shift'},
     'Right',
     function()
       awful.tag.incmwfact(0.05)
@@ -168,7 +216,7 @@ local globalKeys =
     {description = 'Increase master width factor', group = 'layout'}
   ),
   awful.key(
-    {altkey, 'Shift'},
+    {modkey, 'Shift'},
     'Left',
     function()
       awful.tag.incmwfact(-0.05)
@@ -176,7 +224,7 @@ local globalKeys =
     {description = 'Decrease master width factor', group = 'layout'}
   ),
   awful.key(
-    {altkey, 'Shift'},
+    {modkey, 'Shift'},
     'Down',
     function()
       awful.client.incwfact(0.05)
@@ -184,7 +232,7 @@ local globalKeys =
     {description = 'Decrease master height factor', group = 'layout'}
   ),
   awful.key(
-    {altkey, 'Shift'},
+    {modkey, 'Shift'},
     'Up',
     function()
       awful.client.incwfact(-0.05)
@@ -192,16 +240,16 @@ local globalKeys =
     {description = 'Increase master height factor', group = 'layout'}
   ),
   awful.key(
-    {modkey, 'Shift'},
-    'Left',
+    {altkey, 'Shift'},
+    'Up',
     function()
       awful.tag.incnmaster(1, nil, true)
     end,
     {description = 'Increase the number of master clients', group = 'layout'}
   ),
   awful.key(
-    {modkey, 'Shift'},
-    'Right',
+    {altkey, 'Shift'},
+    'Down',
     function()
       awful.tag.incnmaster(-1, nil, true)
     end,
@@ -411,21 +459,22 @@ local globalKeys =
       awful.util.spawn(apps.default.files)
     end,
     {description = 'filebrowser', group = 'hotkeys'}
-  ),
-  -- Emoji Picker
-  awful.key(
-    {modkey},
-    'a',
-    function()
-      awful.util.spawn_with_shell('ibus emoji')
-    end,
-    {description = 'Open the ibus emoji picker to copy an emoji to your clipboard', group = 'hotkeys'}
   )
+  -- Emoji Picker
+  -- awful.key(
+  --   {modkey},
+  --   'a',
+  --   function()
+  --     awful.util.spawn_with_shell('ibus emoji')
+  --   end,
+  --   {description = 'Open the ibus emoji picker to copy an emoji to your clipboard', group = 'hotkeys'}
+  -- )
 )
 
 -- Bind all key numbers to tags.
 -- Be careful: we use keycodes to make it works on any keyboard layout.
 -- This should map on the top row of your keyboard, usually 1 to 9.
+local np_map = { 87, 88, 89, 83, 84, 85, 79, 80, 81 }
 for i = 1, 9 do
   -- Hack to only show tags 1 and 9 in the shortcut window (mod+s)
   local descr_view, descr_toggle, descr_move, descr_toggle_focus
@@ -441,7 +490,7 @@ for i = 1, 9 do
     -- View tag only.
     awful.key(
       {modkey},
-      '#' .. i + 9,
+      '#' .. np_map[i],
       function()
         local screen = awful.screen.focused()
         local tag = screen.tags[i]

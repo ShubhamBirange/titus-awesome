@@ -9,6 +9,8 @@ local mat_icon_button = require('widget.material.icon-button')
 local mat_icon = require('widget.material.icon')
 local dpi = require('beautiful').xresources.apply_dpi
 local icons = require('theme.icons')
+local battery_widget = require('widget.battery')
+local cpu_widget = require('widget.cpu-widget.cpu-widget')
 
 -- Titus - Horizontal Tray
 local systray = wibox.widget.systray()
@@ -128,6 +130,7 @@ local TopPanel = function(s)
       },
       nil,
       {
+        cpu_widget(),
         layout = wibox.layout.fixed.horizontal,
         wibox.container.margin(systray, dpi(3), dpi(3), dpi(6), dpi(3)),
         -- Layout box

@@ -52,15 +52,15 @@ local function list_update(w, buttons, label, data, objects)
       ib = wibox.widget.imagebox()
       tb = wibox.widget.textbox()
       bgb = wibox.container.background()
-      tbm = wibox.container.margin(tb, dpi(6), dpi(6))
+      tbm = wibox.container.margin(tb, dpi(10), dpi(10))
       ibm = wibox.container.margin(ib, dpi(6), dpi(6), dpi(6), dpi(6))
       l = wibox.layout.fixed.horizontal()
       bg_clickable = clickable_container()
 
       -- All of this is added in a fixed widget
       l:fill_space(true)
-      l:add(ibm)
-      -- l:add(tbm)
+      -- l:add(ibm)
+      l:add(tbm)
       bg_clickable:set_widget(l)
 
       -- And all of this gets a background
@@ -85,6 +85,7 @@ local function list_update(w, buttons, label, data, objects)
       tbm:set_margins(0)
     else
       if not tb:set_markup_silently(text) then
+        tb:set_font('Roboto regular 50')
         tb:set_markup('<i>&lt;Invalid text&gt;</i>')
       end
     end

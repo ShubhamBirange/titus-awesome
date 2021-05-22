@@ -64,7 +64,7 @@ local awesome_overrides =
   theme.layout_tile = theme.icons .. 'layouts/view-quilt.png'
 
   -- Taglist
-
+  theme.taglist_font = 'Roboto bold 13'
   theme.taglist_bg_empty = theme.background.hue_800
   theme.taglist_bg_occupied = theme.background.hue_800
   theme.taglist_bg_urgent =
@@ -75,7 +75,7 @@ local awesome_overrides =
           ':0.08,' .. theme.accent.hue_500 .. ':0.08,' .. theme.background.hue_800 .. ':1,' .. theme.background.hue_800
   theme.taglist_bg_focus =
     'linear:0,0:' ..
-    dpi(40) ..
+    dpi(400) ..
       ',0:0,' ..
         theme.primary.hue_500 ..
           ':0.08,' .. theme.primary.hue_500 .. ':0.08,' .. theme.background.hue_800 .. ':1,' .. theme.background.hue_800
